@@ -1,0 +1,71 @@
+﻿#build-tables table {
+    position: relative;
+}
+
+#build-tables table tr {
+  margin: 0;
+  padding: 0;
+}
+
+#build-tables table td, #build-tables table th {
+  margin: 0;
+  padding: 0;
+  width: 25%;
+}
+
+#build-tables table p {
+  border-radius: 4px;
+  font-weight: bold;
+  margin: .25em;
+  padding: 1em;
+}
+
+#build-tables table div {
+    position: absolute;
+    top: 0;
+    font-weight: bold;
+}
+
+p, th, td {
+    font-size: 1em;
+}
+
+p.pending {
+  background-color: darkgoldenrod;
+  color: #eee;
+}
+
+p.succeeded {
+  background-color: darkgreen;
+  color: #eee;
+}
+
+p.failed {
+  background-color: darkred;
+  color: #eee;
+}
+
+p.canceled {
+  background-color: gray;
+  color: #eee;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.4em;
+}
+
+h4 {
+    font-size: 1.3em;
+}
+
+h5 {
+    font-size: 1.2em;
+}

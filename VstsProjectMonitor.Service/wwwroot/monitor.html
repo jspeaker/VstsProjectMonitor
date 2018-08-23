@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VSTS Project Monitor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles/builds.css" />
+</head>
+<body>
+    <div class="container body-content">
+        <h1>VSTS Project Monitor</h1>
+        <section class="row">
+            <label for="projects" class="col-sm-2">Projects:</label>
+            <select id="projects" class="col-sm-9" multiple="multiple"></select>
+            <span class="col-sm-1"></span>
+        </section>
+        <section id="build-tables"></section>
+        <!--<table id="builds" class="table table-striped table-condensed table-hover">
+          <thead>
+            <tr>
+              <th>Build Definition</th>
+              <th>Current</th>
+              <th>Last Build</th>
+              <th>Before Last</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="builds-loading"><td colspan="4">No build definitions are loaded.</td></tr>
+          </tbody>
+        </table>-->
+    </div>
+    <script src="/scripts/extensions.js"></script>
+    <script src="/scripts/html-scribe.js"></script>
+
+    <script src="/scripts/project-monitor.js"></script>
+    <script src="/scripts/build-definitions.js"></script>
+
+    <script src="/scripts/projects.js"></script>
+    <script src="/scripts/builds.js"></script>
+    <script src="/scripts/bugs.js"></script>
+
+    <script src="/scripts/project-repository.js"></script>
+    <script src="/scripts/build-definition-repository.js"></script>
+    <script src="/scripts/bug-repository.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        window.onload = function () {
+            $(document).ready(function () {
+                ;
+
+                ProjectMonitor.init($, function () {
+                    new ProjectMonitor.ProjectsUi().load(function () {
+                        $("#projects").select2();
+                    });
+                });
+
+                window.setInterval(function () {
+                    new ProjectMonitor.Ui().reload();
+                }, 15000);
+
+                window.setInterval(function () {
+                    ProjectMonitor.Ui().pulse();
+                }, 2500);
+            });
+        };
+    </script>
+</body>
+</html>
