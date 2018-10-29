@@ -36,6 +36,10 @@ describe("GivenBuildsObject",
           function () {
             builds.render("#id", "ProjectName-123");
             expect(ProjectMonitor.domAccess("#id tr").length).toBeGreaterThan(0);
+            expect(ProjectMonitor.domAccess("#id tr td")[0].innerText.indexOf("AzureSqlAuth")).toBe(0);
+            expect(ProjectMonitor.domAccess("#id tr td")[1].innerText.indexOf("Jim: 1.0.0.1")).toBe(0);
+            expect(ProjectMonitor.domAccess("#id tr td")[2].innerText.indexOf("Jim: 1.0.0.2")).toBe(0);
+            expect(ProjectMonitor.domAccess("#id tr td")[3].innerText.indexOf("Jim: 1.1.0.2")).toBe(0);
           });
       });
 

@@ -29,7 +29,7 @@ ProjectMonitor.BuildDefinitionGroup = function (builds, scribe) {
     scribe.inscribe(scribe.inscribe(buildDefinitionRow, "td", "", "", ""), "p", "", "", builds[0].definition.name);
 
     for (var index = 0; index < 3; index += 1) {
-      scribe.inscribe(scribe.inscribe(buildDefinitionRow, "td", "", "", ""), "p", "", build(index).result, build(index).buildNumber);
+      scribe.inscribe(scribe.inscribe(buildDefinitionRow, "td", "", "", ""), "p", "", build(index).result, build(index).requestedFor.displayName + ": " + build(index).buildNumber);
     }
   };
 

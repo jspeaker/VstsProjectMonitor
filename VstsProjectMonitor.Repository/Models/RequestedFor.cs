@@ -11,7 +11,11 @@ namespace VstsProjectMonitor.Repository.Models
             _imageUrl = imageUrl;
         }
 
-        [JsonProperty("displayName")] private readonly string _displayName;
+        private readonly string _displayName;
+
+        [JsonProperty("displayName")]
+        private string DisplayName => _displayName.Split(' ')[0];
+
         [JsonProperty("imageUrl")] private readonly string _imageUrl;
     }
 }

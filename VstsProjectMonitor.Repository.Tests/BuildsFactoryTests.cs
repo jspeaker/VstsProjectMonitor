@@ -77,7 +77,7 @@ namespace VstsProjectMonitor.Repository.Tests
             jDefinition["name"].Value<string>().Should().Be("Honest Joe's CI");
 
             JObject jRequestedFor = jBuilds[0].Value<JObject>("requestedFor");
-            jRequestedFor["displayName"].Value<string>().Should().Be("Jim Speaker");
+            jRequestedFor["displayName"].Value<string>().Should().Be("Jim");
             jRequestedFor["imageUrl"].Value<string>().Should().Be("https://iontechdotorg.visualstudio.com/_api/_common/identityImage?id=f9a18dab-76b3-42bc-bb3a-103865994dae");
         }
     }
