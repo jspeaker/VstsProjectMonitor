@@ -43,6 +43,32 @@ describe("GivenBuildsObject",
           });
       });
 
+    describe("AndPartialData",
+      function () {
+        var fakeDomAccess = new Fakes.DomAccess(new Fakes.PartialBuildData().get());
+        var projectRepository = new ProjectMonitor.ProjectRepository(fakeDomAccess);
+        var builds = new ProjectMonitor.Builds(ProjectMonitor.domAccess, projectRepository);
+
+        beforeEach(function () {
+          $("body").append("<div id='id'></div>");
+        });
+
+        afterEach(function () {
+          $("#id").remove();
+        });
+
+        it("WhenAskingToRender_ThenItShouldInscribe",
+          function () {
+            builds.render("#id", "ProjectName-123");
+            expect(ProjectMonitor.domAccess("#id tr").length).toBeGreaterThan(0);
+            expect(ProjectMonitor.domAccess("#id tr td")[0].innerText.indexOf("AzureSqlAuth")).toBe(0);
+            expect(ProjectMonitor.domAccess("#id tr td")[1].innerText.indexOf("Jim: 1.0.0.1")).toBe(0);
+            expect(ProjectMonitor.domAccess("#id tr td")[2].innerText.indexOf("Jim: 1.0.0.2")).toBe(0);
+            expect(ProjectMonitor.domAccess("#id tr td")[3].innerText.charCodeAt(0)).toBe(160);
+          });
+      });
+
+
     describe("AndNoBuildData",
       function () {
         var fakeDomAccess = new Fakes.DomAccess({});

@@ -7,7 +7,7 @@ ProjectMonitor.BuildDefinitionGroup = function (builds, scribe) {
   // ReSharper restore CallerCalleeUsing
 
   var build = function (index) {
-    if (builds.length < index + 1) return { result: "empty", buildNumber: "&nbsp;", definition: { id: 0, name: "" } };
+    if (builds.length < index + 1) return { result: "empty", buildNumber: "&nbsp;", definition: { id: 0, name: "" }, requestedFor: { displayName: "" } };
 
     return builds[index];
   };
@@ -22,6 +22,12 @@ ProjectMonitor.BuildDefinitionGroup = function (builds, scribe) {
     return "definition-" + builds[0].definition.id;
   };
 
+  var buildLabel = function(build) {
+    if (!build.requestedFor || !build.requestedFor.displayName) return "&nbsp;";
+
+    return build.requestedFor.displayName + ": " + build.buildNumber;
+  }
+
   var render = function (target) {
     var buildDefinitionRow = scribe.inscribe(target.replace(".", "\\."), "tr", rowId(), "", "");
     cacheBuildDefinitionGroup(buildDefinitionRow);
@@ -29,7 +35,7 @@ ProjectMonitor.BuildDefinitionGroup = function (builds, scribe) {
     scribe.inscribe(scribe.inscribe(buildDefinitionRow, "td", "", "", ""), "p", "", "", builds[0].definition.name);
 
     for (var index = 0; index < 3; index += 1) {
-      scribe.inscribe(scribe.inscribe(buildDefinitionRow, "td", "", "", ""), "p", "", build(index).result, build(index).requestedFor.displayName + ": " + build(index).buildNumber);
+      scribe.inscribe(scribe.inscribe(buildDefinitionRow, "td", "", "", ""), "p", "", build(index).result, buildLabel(build(index)));
     }
   };
 
