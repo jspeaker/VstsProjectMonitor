@@ -49,7 +49,7 @@ describe("GivenBuildDefinitionsObject",
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option").length).toBe(3);
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[0].id).toBe("build-definition-123");
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[0].className).toBe("");
-                        expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[0].innerText).toBe("one two three");
+                        expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[0].label).toBe("one two three");
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[0].attributes.length).toBe(3);
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[0].attributes[0].name).toBe("id");
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[0].attributes[1].name).toBe("value");
@@ -58,7 +58,7 @@ describe("GivenBuildDefinitionsObject",
 
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[1].id).toBe("build-definition-234");
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[1].className).toBe("");
-                        expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[1].innerText).toBe("two three four");
+                        expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[1].label).toBe("two three four");
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[1].attributes.length).toBe(3);
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[1].attributes[0].name).toBe("id");
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[1].attributes[1].name).toBe("value");
@@ -67,7 +67,7 @@ describe("GivenBuildDefinitionsObject",
 
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[2].id).toBe("build-definition-345");
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[2].className).toBe("");
-                        expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[2].innerText).toBe("three four five");
+                        expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[2].label).toBe("three four five");
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[2].attributes.length).toBe(3);
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[2].attributes[0].name).toBe("id");
                         expect(ProjectMonitor.domAccess("#id optgroup[label='strickland-website-redesign'] option")[2].attributes[1].name).toBe("value");

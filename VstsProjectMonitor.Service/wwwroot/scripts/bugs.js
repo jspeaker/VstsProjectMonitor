@@ -9,7 +9,7 @@ ProjectMonitor.Bugs = function (bugRepository, scribe) {
   var render = function (projectName, target) {
     bugRepository.bugs(projectName,
       function(data) {
-        scribe.inscribe(target, "div", projectName, "", "Open Bug Count: " + data.bugs.length, "");
+        scribe.inscribe(target, "div", ProjectMonitor.ProjectName(projectName).domId(), "", "Open Bug Count: " + data.bugs.length, "");
       });
   };
 

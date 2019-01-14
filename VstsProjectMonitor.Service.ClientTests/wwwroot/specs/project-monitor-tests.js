@@ -14,6 +14,18 @@
 
 /// <reference path="../scripts/fakes/fake-dom-access.js" />
 
+describe("GivenProjectNameWithSpaces",
+  function() {
+    ProjectMonitor.init($);
+
+    it("ShouldReplaceSpacesWithDashes",
+      function() {
+        var projectId = new ProjectMonitor.ProjectName("Project Name With  Spaces").domId();
+
+        expect(projectId).toBe("Project-Name-With--Spaces");
+      });
+  });
+
 describe("GivenProjectMonitorUi",
   function () {
     ProjectMonitor.init($);
@@ -22,7 +34,7 @@ describe("GivenProjectMonitorUi",
       function () {
 
         beforeEach(function () {
-          $("body").append("<select id='projects' multiple='multiple'><option value='123' data-project-name='projectOne' selected='selected'></option><option value='124' data-project-name='projectOne'></option><option value='234' data-project-name='projectTwo'></option><option value='125' data-project-name='projectThree' selected='selected'></option></select>");
+          $("body").append("<select id='projects' multiple='multiple'><option value='123' data-project-name='project One' selected='selected'></option><option value='124' data-project-name='project One'></option><option value='234' data-project-name='project  Two'></option><option value='125' data-project-name='project Three' selected='selected'></option></select>");
           $("body").append("<section id='build-tables'></section>");
         });
 
@@ -42,36 +54,36 @@ describe("GivenProjectMonitorUi",
           function () {
             projectMonitorUi.load();
 
-            expect($("body #table-projectOne").length).toBe(1);
-            expect($("body #table-projectTwo").length).toBe(0);
-            expect($("body #table-projectThree").length).toBe(1);
+            expect($("body #table-project-One").length).toBe(1);
+            expect($("body #table-project--Two").length).toBe(0);
+            expect($("body #table-project-Three").length).toBe(1);
           });
 
         it("WhenAskingToLoad_ThenItShouldInitializeTables",
           function () {
             projectMonitorUi.load();
 
-            expect($("body #build-tables h2")[0].innerText).toBe("projectOne");
-            expect($("body #build-tables h2")[1].innerText).toBe("projectThree");
+            expect($("body #build-tables h2")[0].innerText).toBe("project One");
+            expect($("body #build-tables h2")[1].innerText).toBe("project Three");
 
-            expect($("body #table-projectOne thead tr th").length).toBe(4);
-            expect($("body #table-projectTwo").length).toBe(0);
-            expect($("body #table-projectThree thead tr th").length).toBe(4);
+            expect($("body #table-project-One thead tr th").length).toBe(4);
+            expect($("body #table-project--Two").length).toBe(0);
+            expect($("body #table-project-Three thead tr th").length).toBe(4);
 
-            expect($("body #table-projectOne tbody").length).toBe(1);
-            expect($("body #table-projectThree tbody").length).toBe(1);
+            expect($("body #table-project-One tbody").length).toBe(1);
+            expect($("body #table-project-Three tbody").length).toBe(1);
           });
 
         it("WhenAskingToLoad_ThenItShouldRenderBugCount",
           function () {
             projectMonitorUi.load();
 
-            expect($("body #table-projectOne #projectOne").length).toBe(1);
-            expect($("body #table-projectTwo #projectTwo").length).toBe(0);
-            expect($("body #table-projectThree #projectThree").length).toBe(1);
+            expect($("body #table-project-One #project-One").length).toBe(1);
+            expect($("body #table-project--Two #project--Two").length).toBe(0);
+            expect($("body #table-project-Three #project-Three").length).toBe(1);
 
-            expect($("body #table-projectOne #projectOne").html()).toBe("Open Bug Count: 3");
-            expect($("body #table-projectThree #projectThree").html()).toBe("Open Bug Count: 3");
+            expect($("body #table-project-One #project-One").html()).toBe("Open Bug Count: 3");
+            expect($("body #table-project-Three #project-Three").html()).toBe("Open Bug Count: 3");
           });
       });
   });

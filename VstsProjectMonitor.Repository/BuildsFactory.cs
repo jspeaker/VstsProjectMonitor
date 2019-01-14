@@ -31,7 +31,7 @@ namespace VstsProjectMonitor.Repository
 
         public Builds Create(string projectName) => BuildsFromResult(AuthorizedHttpClient().GetStringAsync($"/{projectName}/_apis/build/builds?api-version=5.0-preview.4").Result);
 
-        public Builds Create(string projectName, IEnumerable<int> buildDefinitionIds) => BuildsFromResult(AuthorizedHttpClient().GetStringAsync($"/{projectName}/_apis/build/builds?definitions={string.Join(",", buildDefinitionIds)}&api-version=5.0-preview.4").Result);
+        public Builds Create(string projectName, IEnumerable<int> buildDefinitionIds) => BuildsFromResult(AuthorizedHttpClient().GetStringAsync($"/{Uri.EscapeUriString(projectName)}/_apis/build/builds?definitions={string.Join(",", buildDefinitionIds)}&api-version=5.0-preview.4").Result);
 
         private HttpClient AuthorizedHttpClient()
         {
