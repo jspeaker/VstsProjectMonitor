@@ -116,6 +116,24 @@ describe("GivenProjectsUiObject",
             expect(projects[0]).toBe("projectOne");
             expect(projects[1]).toBe("projectTwo");
           });
+
+        it("WhenAskingForBuildDefintionIds_ThenItShouldReturnAddThemToACookie",
+          function() {
+            var projectsUi = new ProjectMonitor.ProjectsUi();
+
+            //act
+            projectsUi.buildDefinitionIds();
+
+            //assert
+            var cookie = Cookies.get("BuildDefinitionIds");
+            expect(cookie).not.toBe(undefined);
+            var cookieObject = JSON.parse(cookie);
+            expect(cookieObject.length).toBe(2);
+            expect(cookieObject[0]).toBe("projectOne-123");
+            expect(cookieObject[1]).toBe("projectTwo-234");
+          }
+        );
+
       });
 
     describe("AndNoSelectedProjectBuildDefinitions",

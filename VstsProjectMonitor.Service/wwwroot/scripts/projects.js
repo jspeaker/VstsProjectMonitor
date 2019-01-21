@@ -36,8 +36,9 @@ ProjectMonitor.Projects = function (domAccess, projectRepository, buildDefinitio
   };
 };
 
-ProjectMonitor.ProjectsUi = function () {
+ProjectMonitor.ProjectsUi = function (cookieBaker) {
   // ReSharper disable CallerCalleeUsing
+  if (!cookieBaker) return new arguments.callee(new ProjectMonitor.CookieBaker());
   if (!(this instanceof arguments.callee)) return new arguments.callee();
   // ReSharper restore CallerCalleeUsing
 
@@ -58,13 +59,16 @@ ProjectMonitor.ProjectsUi = function () {
     return projectNames.distinct();
   };
 
-  // TODO: unit test this
+  // TODO: unit test the non-cookie portion of this
   var buildDefinitionIds = function () {
     var nameOptions = ProjectMonitor.domAccess(selectId + " option:selected");
     var names = [];
     for (var index = 0; index < nameOptions.length; index += 1) {
       names.push(ProjectMonitor.domAccess(nameOptions[index]).data("project-name") + "-" + nameOptions[index].value);
     }
+
+    cookieBaker.bake("BuildDefinitionIds", names);
+
     return names;
   };
 
