@@ -13,7 +13,7 @@ ProjectMonitor.ProjectName = function (projectName) {
 
   this.projectName = projectName;
 
-  var domId = function() {
+  var domId = function () {
     return projectName.replace(/\s/gi, "-");
   };
 
@@ -22,9 +22,9 @@ ProjectMonitor.ProjectName = function (projectName) {
   };
 };
 
-ProjectMonitor.Ui = function (domAccess, builds, bugs, projectsUi, scribe) {
+ProjectMonitor.Ui = function (domAccess, builds, bugs, projectsUi, scribe, historian) {
   // ReSharper disable CallerCalleeUsing
-  if (!domAccess || !builds || !bugs || !projectsUi || !scribe) return new arguments.callee(ProjectMonitor.domAccess, new ProjectMonitor.Builds(), new ProjectMonitor.Bugs(), new ProjectMonitor.ProjectsUi(), new Output.HtmlScribe(ProjectMonitor.domAccess));
+  if (!domAccess || !builds || !bugs || !projectsUi || !scribe || !historian) return new arguments.callee(ProjectMonitor.domAccess, new ProjectMonitor.Builds(), new ProjectMonitor.Bugs(), new ProjectMonitor.ProjectsUi(), new Output.HtmlScribe(ProjectMonitor.domAccess), new ProjectMonitor.Historian());
   if (!(this instanceof arguments.callee)) return new arguments.callee();
   // ReSharper restore CallerCalleeUsing
 
@@ -54,7 +54,7 @@ ProjectMonitor.Ui = function (domAccess, builds, bugs, projectsUi, scribe) {
     scribe.inscribe("#table-" + domId.replace(".", "\\."), "tbody", "", "", "", "");
   };
 
-  var initializeSection = function () {
+  var initializeSection = function (callback) {
     var tableSectionId = "#build-tables";
 
     scribe.clear(tableSectionId);
@@ -70,9 +70,11 @@ ProjectMonitor.Ui = function (domAccess, builds, bugs, projectsUi, scribe) {
       writeBugCount(projectName, domId);
       writeTableBody(domId);
     }
+
+    callback && callback();
   };
 
-  var reload = function () {
+  var reload = function (callback) {
     var buildDefinitionIds = projectsUi.buildDefinitionIds();
 
     // todo: optimize performance - this is making a call for every selected build definition. Make these calls grouped by project?
@@ -80,11 +82,27 @@ ProjectMonitor.Ui = function (domAccess, builds, bugs, projectsUi, scribe) {
     for (var index = 0; index < buildDefinitionIds.length; index += 1) {
       builds.render("#table-" + ProjectMonitor.ProjectName(buildDefinitionIds[index].split("-")[0]).domId() + " tbody", buildDefinitionIds[index]);
     }
+
+    callback && callback();
+  };
+
+  var preselect = function (callback) {
+    var rawHistory = historian.recite("ProjectBuildDefinitions");
+    if (!rawHistory) return;
+    var history = JSON.parse(rawHistory);
+    for (var index = 0; index < history.length; index += 1) {
+      var project = history[index];
+
+      for (var buildDefIndex = 0; buildDefIndex < project.buildDefinitionIds.length; buildDefIndex += 1) {
+         ProjectMonitor.domAccess("#projects option[value='" + project.buildDefinitionIds[buildDefIndex] + "'][data-project-name='" + project.projectName + "']").prop("selected", true);
+      }
+    }
+
+    callback && callback();
   };
 
   var load = function () {
-    initializeSection();
-    reload();
+    initializeSection(function() { reload(preselect); });
   };
 
   var pulse = function () {

@@ -32,6 +32,9 @@
     <script src="/scripts/build-definition-repository.js"></script>
     <script src="/scripts/bug-repository.js"></script>
 
+    <script src="/scripts/cookie-baker.js"></script>
+    <script src="/scripts/historian.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -43,6 +46,7 @@
                 ProjectMonitor.init($, function () {
                     new ProjectMonitor.ProjectsUi().load(function () {
                         $("#projects").select2();
+                        new ProjectMonitor.Ui().load();
                     });
                 });
 

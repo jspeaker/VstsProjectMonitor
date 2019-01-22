@@ -1,12 +1,13 @@
 ﻿var ProjectMonitor = ProjectMonitor || {};
 
-ProjectMonitor.Projects = function (domAccess, projectRepository, buildDefinitions, scribe) {
+ProjectMonitor.Projects = function (domAccess, projectRepository, buildDefinitions, scribe, historian) {
   // ReSharper disable CallerCalleeUsing
-  if (!domAccess || !projectRepository || !buildDefinitions || !scribe)
+  if (!domAccess || !projectRepository || !buildDefinitions || !scribe || !historian)
     return new arguments.callee(ProjectMonitor.domAccess,
       new ProjectMonitor.ProjectRepository(ProjectMonitor.domAccess),
       new ProjectMonitor.BuildDefinitions(new ProjectMonitor.BuildDefinitionRepository(ProjectMonitor.domAccess), new Output.HtmlScribe(ProjectMonitor.domAccess)),
-      new Output.HtmlScribe(ProjectMonitor.domAccess));
+      new Output.HtmlScribe(ProjectMonitor.domAccess),
+      new ProjectMonitor.Historian());
 
   if (!(this instanceof arguments.callee)) return new arguments.callee(domAccess, projectRepository, buildDefinitions, scribe);
   // ReSharper restore CallerCalleeUsing
@@ -26,7 +27,7 @@ ProjectMonitor.Projects = function (domAccess, projectRepository, buildDefinitio
       }
 
       domAccess(target).change(function () {
-        //new ProjectMonitor.Historian().record();
+        historian.record($("#projects"), "ProjectBuildDefinitions");
         ProjectMonitor.Ui().load();
       });
     });

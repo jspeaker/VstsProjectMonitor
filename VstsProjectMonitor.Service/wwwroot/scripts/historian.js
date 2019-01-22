@@ -22,6 +22,9 @@ ProjectMonitor.Historian = function (cookieBaker) {
 
       projectBuildDefinitions.find(function (element) { return element.projectName === projectName; }).buildDefinitionIds.push(selectedBuildDefinitions[index].value);
     }
+
+    if (projectBuildDefinitions.length === 0) return;
+
     cookieBaker.bake(recordName, projectBuildDefinitions);
   };
 
