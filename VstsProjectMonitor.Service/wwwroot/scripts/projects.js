@@ -26,6 +26,7 @@ ProjectMonitor.Projects = function (domAccess, projectRepository, buildDefinitio
       }
 
       domAccess(target).change(function () {
+        //new ProjectMonitor.Historian().record();
         ProjectMonitor.Ui().load();
       });
     });

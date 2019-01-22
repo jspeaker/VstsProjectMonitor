@@ -19,11 +19,9 @@ describe("GivenBuildDefinitions",
 
     it("WhenAskingToBakeCookie_ThenItShouldBakeCookie",
       function () {
-
         cookieBaker.bake(cookieName, ingredients);
         var cookie = Cookies.get(cookieName);
         expect(JSON.parse(cookie).name).toBe("myProj");
-
       });
 
     describe("AndCookieExists",
